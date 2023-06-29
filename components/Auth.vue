@@ -1,0 +1,38 @@
+<script setup>
+const supabase = useSupabaseClient()
+
+const loading = ref(false)
+const email = ref('')
+const password = ref('')
+
+const handleLogin = async () => {
+  try {
+    loading.value = true
+    const { error } = await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
+    if (error) throw error
+  } catch (error) {
+    alert(error.error_description || error.message)
+  } finally {
+    loading.value = false
+    navigateTo('/dashboard')
+  }
+}
+</script>
+
+<template>
+  <form class="form-widget flex flex-col max-w-800px w-full" @submit.prevent="handleLogin">
+      <h1 class="description font-semibold text-xl text-center mb-4">Sign in via email and password below</h1>
+      <div class="flex flex-col w-full">
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full" type="email" placeholder="Your email" v-model="email" />
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full" type="password" placeholder="Your password" v-model="password" />
+      </div>
+      <div>
+        <input
+          type="submit"
+          class="button bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 float-right"
+          :value="loading ? 'Loading' : 'Log in'"
+          :disabled="loading"
+        />
+      </div>
+  </form>
+</template>
