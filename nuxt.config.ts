@@ -16,5 +16,8 @@ export default defineNuxtConfig({
         allow: ["/."]
       }
     }
+  },
+  colorMode: {
+    classSuffix: '',
   }
 })

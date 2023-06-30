@@ -37,6 +37,7 @@ async function signOut() {
     alert(error.message)
   } finally {
     loading.value = false
+    navigateTo('/')
   }
 }
 </script>
@@ -44,12 +45,12 @@ async function signOut() {
 <template>
   <form class="form-widget max-w-800px w-full" @submit.prevent="updateUserData">
     <div class="flex flex-col">
-      <label for="email">Email</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3" id="email" type="email" :value="user?.email" disabled />
+      <label for="email" class="dark:text-white">Email</label>
+      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="email" type="email" :value="user?.email" />
     </div>
     <div class="flex flex-col">
-      <label for="password">Password</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2" id="password" type="password" v-model="password" />
+      <label for="password" class="dark:text-white">Password</label>
+      <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="password" type="password" v-model="password" />
     </div>
 
     <div class="flex mt-2 float-right">
@@ -60,7 +61,7 @@ async function signOut() {
         :disabled="loading"
       />
 
-      <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2" @click="signOut" :disabled="loading">Sign Out</button>
+      <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#313836] dark:border-[#4F5A57]" @click="signOut" :disabled="loading">Log out</button>
     </div>
   </form>
 </template>

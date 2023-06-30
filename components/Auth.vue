@@ -21,10 +21,10 @@ const handleLogin = async () => {
 
 <template>
   <form class="form-widget flex flex-col max-w-800px w-full" @submit.prevent="handleLogin">
-      <h1 class="description font-semibold text-xl text-center mb-4">Sign in via email and password below</h1>
+      <h1 class="description font-semibold text-xl text-center mb-4 dark:text-white">Sign in via email and password below</h1>
       <div class="flex flex-col w-full">
-        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full" type="email" placeholder="Your email" v-model="email" />
-        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full" type="password" placeholder="Your password" v-model="password" />
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" type="email" placeholder="Your email" v-model="email" />
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" type="password" placeholder="Your password" v-model="password" />
       </div>
       <div>
         <input

@@ -24,13 +24,13 @@ const account = async () => {
 <template>
   <div>
     <Title>Healti</Title>
-    <div class="flex items-center md:justify-between justify-center px-4 py-2 bg-[#D0FFF0] text-[#64CFAC]">
-      <div class="hidden md:block">
+    <div class="flex items-center justify-between px-4 py-1 border-b dark:border-[#313836] dark:text-white">
+      <div class="block">
         <UButton
           variant="transparent"
           @click="dashboard"
         >
-          <img src="/logo.png" alt="logo" class="w-10 h-10" />
+          <h1 class="text-[#64CFAC] font-extrabold text-3xl">h</h1>
         </UButton>
       </div>
       <div class="flex items-center">
@@ -44,18 +44,18 @@ const account = async () => {
         </UButton>
         <UButton
           variant="transparent"
-          class="u-text-white ml-3"
+          class="u-text-white ml-4"
           @click="toggleDark"
         >
-          Dark/Light
+          {{ colorMode.value === 'dark' ? 'Light' : 'Dark' }}
         </UButton>
         <UButton
           v-if="user"
-          class="u-text-white ml-3"
+          class="u-text-white ml-4"
           variant="transparent"
           @click="logout"
         >
-          Logout
+          Log out
         </UButton>
       </div>
     </div>
