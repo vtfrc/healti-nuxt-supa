@@ -54,21 +54,22 @@ async function pushHealthData() {
 
 <template>
   <form class="form-widget max-w-800px w-full" @submit.prevent="pushHealthData">
+    <h1 class="description font-semibold text-xl text-left mb-4 dark:text-white">How is your health today?</h1>
     <div class="flex flex-col">
       <label for="blood_pressure" class="dark:text-white">Blood Pressure</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="blood_pressure" type="text" v-model="blood_pressure" />
+      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="blood_pressure" type="text" v-model="blood_pressure" />
     </div>
     <div class="flex flex-col">
       <label for="heart_rate" class="dark:text-white">Heart Rate</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="heart_rate" type="text" v-model="heart_rate" />
+      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="heart_rate" type="text" v-model="heart_rate" />
     </div>
     <div class="flex flex-col">
       <label for="blood_oxygen" class="dark:text-white">Blood Oxygen</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="blood_oxygen" type="text" v-model="blood_oxygen" />
+      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="blood_oxygen" type="text" v-model="blood_oxygen" />
     </div>
     <div class="flex flex-col">
       <label for="temperature" class="dark:text-white">Temperature</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#313836] dark:border-[#4F5A57] dark:text-white" id="temperature" type="text" v-model="temperature" />
+      <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="temperature" type="text" v-model="temperature" />
     </div>
 
     <div class="flex mt-2 float-right">

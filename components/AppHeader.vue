@@ -24,7 +24,7 @@ const account = async () => {
 <template>
   <div>
     <Title>Healti</Title>
-    <div class="flex items-center justify-between px-4 py-1 border-b dark:border-[#313836] dark:text-white">
+    <div class="flex items-center justify-between px-4 py-1 border-b dark:border-[#282828] dark:text-white">
       <div class="block">
         <UButton
           variant="transparent"
