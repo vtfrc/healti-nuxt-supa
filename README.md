@@ -1,63 +1,32 @@
-# Nuxt 3 Minimal Starter
+# Healti
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Open source health monitor app built with Nuxt3 + Supabase.
 
-## Setup
+This is an experiment to play with cool technologies while building something I wanted to for a while.
 
-Make sure to install the dependencies:
+## Features & technologies
 
-```bash
-# npm
-npm install
+- Nuxt3 / Vue3
+- Supabase for the BaaS
+- Supabase Auth for authentication
+- Nuxt-Supabase wrapper for the Supabase JS client
+- NuxtLabs UI for UI components
+- Tailwind CSS for styling
+- Vercel for deployment
+- TypeScript
 
-# pnpm
-pnpm install
+## Run Healti locally
 
-# yarn
+1. Install the dependencies:
+
+```
 yarn install
 ```
 
-## Development Server
+2. Set up your Supabase environment variables in ```.env```.
 
-Start the development server on `http://localhost:3000`:
+3. Start the development server:
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
+```
 yarn dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
