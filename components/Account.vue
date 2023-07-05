@@ -43,7 +43,7 @@ async function signOut() {
 </script>
 
 <template>
-  <form class="form-widget max-w-800px w-full" @submit.prevent="updateUserData">
+  <form class="form-widget max-w-[500px] w-full" @submit.prevent="updateUserData">
     <h1 class="description font-semibold text-xl text-left mb-4 dark:text-white">Edit your profile credentials</h1>
     <div class="flex flex-col">
       <label for="email" class="dark:text-white">Email</label>

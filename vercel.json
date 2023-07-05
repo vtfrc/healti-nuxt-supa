@@ -1,0 +1,9 @@
+{
+    "crons": [
+      {
+        "path": "/api/supa_ping_cron",
+        "schedule": "0 0 * * 5,6"
+      }
+    ]
+  }
+  

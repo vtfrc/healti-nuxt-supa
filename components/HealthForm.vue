@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 const supabase = useSupabaseClient()
 
 const loading = ref(false)
+const blood_pressure = ref('')
+const heart_rate = ref('')
+const blood_oxygen = ref('')
+const temperature = ref('')
 
 async function pushHealthData() {
   try {
@@ -54,7 +58,7 @@ async function pushHealthData() {
 
 <template>
   <div class="w-full">
-    <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How is your health today?</h1>
+    <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
     <form class="form-widget max-w-3xl md:columns-2" @submit.prevent="pushHealthData">
       <div class="flex flex-col">
         <label for="blood_pressure" class="dark:text-white">Blood Pressure</label>
