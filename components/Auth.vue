@@ -10,11 +10,11 @@ const handleLogin = async () => {
     loading.value = true
     const { error } = await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
     if (error) throw error
+    else navigateTo('/dashboard')
   } catch (error) {
     alert(error.error_description || error.message)
   } finally {
     loading.value = false
-    navigateTo('/dashboard')
   }
 }
 </script>
