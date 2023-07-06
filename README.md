@@ -1,6 +1,6 @@
 # Healti
 
-Open source health monitor app built with Nuxt3 + Supabase.
+Open source health monitoring app built with Nuxt3 + Supabase.
 
 This is an experiment to play with cool technologies while building something I wanted to for a while.
 
