@@ -30,16 +30,16 @@ const signup = async () => {
         <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="email" placeholder="Your email" v-model="email" />
         <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="password" placeholder="Your password" v-model="password" />
       </div>
-      <div class="flex justify-between">
+      <div class="text-center md:text-left md:flex md:justify-between">
         <UButton
           variant="transparent"
           @click="signup"
         >
-          <p class="mt-3">Don't have an account? Sign up</p>
+          <p class="mt-3 text-[#87AA9E]">Don't have an account? Sign up</p>
         </UButton>
         <input
           type="submit"
-          class="button bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 float-right"
+          class="button bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right"
           :value="loading ? 'Loading' : 'Log in'"
           :disabled="loading"
         />
