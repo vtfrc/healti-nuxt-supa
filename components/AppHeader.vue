@@ -30,7 +30,7 @@ const account = async () => {
           variant="transparent"
           @click="dashboard"
         >
-          <img src="/logo.svg" alt="logo" class="w-10 h-10 py-1 ml-[-0.375rem]" />
+          <h1 class="font-bold text-3xl text-[#64dfac]">h</h1>
         </UButton>
       </div>
       <div class="flex items-center">
