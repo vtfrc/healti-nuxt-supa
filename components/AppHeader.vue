@@ -30,7 +30,7 @@ const account = async () => {
           variant="transparent"
           @click="dashboard"
         >
-          <h1 class="font-bold text-3xl text-[#64dfac]">h</h1>
+          <h1 class="font-bold text-3xl text-[#64dfac]">healti</h1>
         </UButton>
       </div>
       <div class="flex items-center">
