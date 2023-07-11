@@ -1,7 +1,6 @@
 <script setup>
 const supabase = useSupabaseClient()
 
-const loading = ref(false)
 const email = ref('')
 const password = ref('')
 
@@ -38,8 +37,7 @@ const login = async () => {
         <input
           type="submit"
           class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right"
-          :value="loading ? 'Loading' : 'Sign up'"
-          :disabled="loading"
+          value="Sign up"
         />
       </div>
   </form>

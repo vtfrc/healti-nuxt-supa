@@ -2,43 +2,30 @@
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
-const loading = ref(false)
 const email = ref('')
 const password = ref('')
 
 async function updateUserData() {
-  try {
-    loading.value = true
-
-    const updates = {
-      email: email.value,
-      password: password.value,
-    }
-
-    const { error } = await supabase.auth.updateUser(updates, {
-      returning: 'minimal', // Don't return the value after inserting
-    })
-
-    if (error) throw error
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    loading.value = false
-    alert('User data updated successfully.')
+  const updates = {
+    email: email.value,
+    password: password.value,
   }
+
+  const { user, error } = await supabase.auth.updateUser(updates, {
+    returning: 'minimal', // Don't return the value after inserting
+  })
+
+  console.log(user)
+  console.log(error)
+
+  alert('User data updated successfully.')
 }
 
 async function signOut() {
-  try {
-    loading.value = true
-    let { error } = await supabase.auth.signOut()
-    if (error) throw error
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    loading.value = false
-    navigateTo('/')
-  }
+  let { user, error } = await supabase.auth.signOut()
+  console.log(user)
+  console.log(error)
+  navigateTo('/')
 }
 </script>
 
@@ -58,8 +45,7 @@ async function signOut() {
       <input
         type="submit"
         class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
-        :value="loading ? 'Loading ...' : 'Update'"
-        :disabled="loading"
+        value="Update"
       />
 
       <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut" :disabled="loading">Log out</button>

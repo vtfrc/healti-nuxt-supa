@@ -3,54 +3,46 @@ import { v4 as uuidv4 } from "uuid";
 
 const supabase = useSupabaseClient()
 
-const loading = ref(false)
 const blood_pressure = ref('')
 const heart_rate = ref('')
 const blood_oxygen = ref('')
 const temperature = ref('')
 
 async function pushHealthData() {
-  try {
-    loading.value = true
-    const user = useSupabaseUser()
+  const user = useSupabaseUser()
 
-    const metrics = [
-      { name: 'blood_pressure', value: blood_pressure.value },
-      { name: 'heart_rate', value: heart_rate.value },
-      { name: 'blood_oxygen', value: blood_oxygen.value },
-      { name: 'temperature', value: temperature.value },
-    ]
+  const metrics = [
+    { name: 'blood_pressure', value: blood_pressure.value },
+    { name: 'heart_rate', value: heart_rate.value },
+    { name: 'blood_oxygen', value: blood_oxygen.value },
+    { name: 'temperature', value: temperature.value },
+  ]
 
-    for (let metric of metrics) {
+  for (let metric of metrics) {
 
-      const { data, queryError } = await supabase
-      .from('metric_names')
-      .select('id')
-      .eq('name', metric.name)
-      .single()
+    const { data, queryError } = await supabase
+    .from('metric_names')
+    .select('id')
+    .eq('name', metric.name)
+    .single()
 
-      if (queryError) throw queryError
+    if (queryError) throw queryError
 
-      const updates = {
-        id: uuidv4(),
-        user_id: user.value.id,
-        metric_id: data.id,
-        metric_value: metric.value,
-        date: new Date(),
-      }
-
-      const { error: insertError } = await supabase
-        .from('health_metrics')
-        .insert(updates, {
-          returning: 'minimal', // Don't return the value after inserting
-        })
-
-      if (insertError) throw insertError
+    const updates = {
+      id: uuidv4(),
+      user_id: user.value.id,
+      metric_id: data.id,
+      metric_value: metric.value,
+      date: new Date(),
     }
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    loading.value = false
+
+    const { error: insertError } = await supabase
+      .from('health_metrics')
+      .insert(updates, {
+        returning: 'minimal', // Don't return the value after inserting
+      })
+
+    console.log(error)
   }
 }
 
@@ -84,8 +76,7 @@ async function pushHealthData() {
         <input
           type="submit"
           class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
-          :value="loading ? 'Loading ...' : 'Register health data'"
-          :disabled="loading"
+          value="Register health data"
         />
 
       </div>
