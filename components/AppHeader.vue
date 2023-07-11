@@ -26,37 +26,37 @@ const account = async () => {
     <Title>Healti</Title>
     <div class="flex items-center justify-between px-4 py-1 border-b dark:border-[#282828] dark:text-white">
       <div class="block">
-        <UButton
+        <button
           variant="transparent"
           @click="dashboard"
         >
           <h1 class="font-bold text-3xl text-[#64dfac]">healti</h1>
-        </UButton>
+        </button>
       </div>
       <div class="flex items-center">
-        <UButton
+        <button
             v-if="user"
             class="button"
             variant="transparent"
             @click="account"
         >
             Account
-        </UButton>
-        <UButton
+        </button>
+        <button
           variant="transparent"
           class="u-text-white ml-4"
           @click="toggleDark"
         >
           {{ colorMode.value === 'dark' ? 'Light' : 'Dark' }}
-        </UButton>
-        <UButton
+        </button>
+        <button
           v-if="user"
           class="u-text-white ml-4"
           variant="transparent"
           @click="logout"
         >
           Log out
-        </UButton>
+        </button>
       </div>
     </div>
   </div>

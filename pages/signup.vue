@@ -1,10 +1,7 @@
-<script setup>
-const user = useSupabaseUser()
-
-if (user.value) {
-    navigateTo('/dashboard')
-}  
-
+<script setup> 
+    definePageMeta({
+        middleware: 'auth'
+    })
 </script>
 
 <template>
