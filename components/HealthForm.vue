@@ -61,7 +61,7 @@ async function pushHealthData() {
     <h1 class="description max-w-7xl mx-auto font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
     <form class="form-widget max-w-7xl mx-auto" @submit.prevent="pushHealthData">
       
-      <div class="md:columns-2 2xl:columns-4">
+      <div class="xl:columns-4">
         <div class="flex flex-col">
           <label for="blood_pressure" class="dark:text-white">Blood Pressure</label>
           <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="blood_pressure" type="text" v-model="blood_pressure" />
