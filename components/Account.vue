@@ -57,7 +57,7 @@ async function signOut() {
     <div class="flex mt-2 float-right">
       <input
         type="submit"
-        class="button bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
+        class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
         :value="loading ? 'Loading ...' : 'Update'"
         :disabled="loading"
       />

@@ -6,16 +6,13 @@ const email = ref('')
 const password = ref('')
 
 const handleSignUp = async () => {
-  try {
-    loading.value = true
-    const { error } = await supabase.auth.signUp({ email: email.value, password: password.value })
-    if (error) throw error
-    else navigateTo('/')
-  } catch (error) {
-    alert(error.error_description || error.message)
-  } finally {
-    loading.value = false
-  }
+  const { user, error } = await supabase.auth.signUp({
+    email: email.value,
+    password: password.value
+  })
+  console.log(user)
+  console.log(error)
+  navigateTo('/dashboard')
 }
 
 const login = async () => {
@@ -40,7 +37,7 @@ const login = async () => {
         </button>
         <input
           type="submit"
-          class="button bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right"
+          class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right"
           :value="loading ? 'Loading' : 'Sign up'"
           :disabled="loading"
         />
