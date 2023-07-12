@@ -7,6 +7,8 @@ const toggleDark = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 }
 
+const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'ph:sun-fill' : 'ph:moon-fill')
+
 const logout = async () => {
   await client.auth.signOut()
   navigateTo('/')
@@ -35,19 +37,19 @@ const account = async () => {
       </div>
       <div class="flex items-center">
         <button
+          variant="transparent"
+          class="flex u-text-white"
+          @click="toggleDark"
+        >
+          <Icon :name="colorModeIcon" />
+        </button>
+        <button
             v-if="user"
-            class="button"
+            class="button ml-4"
             variant="transparent"
             @click="account"
         >
             Account
-        </button>
-        <button
-          variant="transparent"
-          class="u-text-white ml-4"
-          @click="toggleDark"
-        >
-          {{ colorMode.value === 'dark' ? 'Light' : 'Dark' }}
         </button>
         <button
           v-if="user"

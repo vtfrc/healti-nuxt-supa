@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
+    'nuxt-icon',
   ],
   supabase: {
     url: process.env.SUPABASE_URL,
