@@ -42,7 +42,7 @@ const account = async () => {
           @click="toggleDark"
         > 
           <Icon v-if="colorMode.preference === 'dark' || (colorMode.preference === 'system' && colorMode.value === 'dark')" name="ph:sun-fill" />
-          <Icon v-else-if="colorMode.preference === 'light' || (colorMode.preference === 'system' && colorMode.value === 'light')" name="ph:moon-fill" />
+          <Icon v-if="colorMode.preference === 'light' || (colorMode.preference === 'system' && colorMode.value === 'light')" name="ph:moon-fill" />
         </button>
         <button
             v-if="user"
