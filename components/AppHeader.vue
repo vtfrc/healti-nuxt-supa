@@ -43,7 +43,7 @@ const account = async () => {
         > 
           <Icon v-if="colorMode.preference === 'dark'" name="ph:sun-fill" />
           <Icon v-if="colorMode.preference === 'light'" name="ph:moon-fill" />
-          <Icon else name="ph:moon-fill" />
+          <Icon v-else name="ph:moon-fill" />
         </button>
         <button
             v-if="user"
