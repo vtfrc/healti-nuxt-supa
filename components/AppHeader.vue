@@ -5,6 +5,7 @@ const colorMode = useColorMode()
 
 const toggleDark = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  colorMode.value = colorMode.preference
 }
 
 //const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'ph:sun-fill' : 'ph:moon-fill')
