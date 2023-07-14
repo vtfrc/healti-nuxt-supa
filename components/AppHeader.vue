@@ -41,10 +41,8 @@ const account = async () => {
           class="flex u-text-white transition-all duration-500 ease-in-out"
           @click="toggleDark"
         > 
-
-          <Icon v-if="colorMode.value === 'light'" name="ph:sun-fill" />
-
-          <Icon v-if="colorMode.value === 'dark'" name="ph:moon-fill" />
+          <Icon v-if="colorMode.preference === 'dark'" name="ph:sun-fill" />
+          <Icon v-if="colorMode.preference === 'light'" name="ph:moon-fill" />
         </button>
         <button
             v-if="user"
