@@ -1,18 +1,24 @@
 <script setup>
+const user = useSupabaseUser()
 const { auth } = useSupabaseAuthClient()
 
 const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { user, error } = auth.signInWithPassword({
+  const { error } = auth.signInWithPassword({
     email: email.value,
     password: password.value
   })
-  console.log(user)
+
   console.log(error)
-  navigateTo('/dashboard')
 }
+
+watchEffect(() => {
+  if (user.value) {
+    navigateTo('/dashboard')
+  }
+})
 
 const signup = async () => {
   navigateTo('/signup')
