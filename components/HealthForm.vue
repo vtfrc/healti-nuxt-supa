@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 const supabase = useSupabaseClient()
+const user = useSupabaseUser()
 
 const blood_pressure = ref('')
 const heart_rate = ref('')
@@ -9,7 +10,6 @@ const blood_oxygen = ref('')
 const temperature = ref('')
 
 async function pushHealthData() {
-  const user = useSupabaseUser()
 
   const metrics = [
     { name: 'blood_pressure', value: blood_pressure.value },
@@ -42,7 +42,7 @@ async function pushHealthData() {
         returning: 'minimal', // Don't return the value after inserting
       })
 
-    console.log(error)
+    if (insertError) console.log(insertError);
   }
 }
 
