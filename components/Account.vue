@@ -48,7 +48,7 @@ async function signOut() {
         value="Update"
       />
 
-      <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut">Log out</button>
+      <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut" type="button">Log out</button>
     </div>
   </form>
 </template>
