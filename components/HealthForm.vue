@@ -86,7 +86,7 @@ async function pushHealthData() {
           class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
           value="Register health data"
         />
-        <div>{{ statusMessage }}</div>
+        <div class="dark:text-white mt-2">{{ statusMessage }}</div>
       </div>
     </form>
   </div>
