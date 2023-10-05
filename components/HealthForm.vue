@@ -9,40 +9,48 @@ const heart_rate = ref('')
 const blood_oxygen = ref('')
 const temperature = ref('')
 
+const statusMessage = ref('')
+
 async function pushHealthData() {
 
-  const metrics = [
-    { name: 'blood_pressure', value: blood_pressure.value },
-    { name: 'heart_rate', value: heart_rate.value },
-    { name: 'blood_oxygen', value: blood_oxygen.value },
-    { name: 'temperature', value: temperature.value },
-  ]
+  try {
+    const metrics = [
+      { name: 'blood_pressure', value: blood_pressure.value },
+      { name: 'heart_rate', value: heart_rate.value },
+      { name: 'blood_oxygen', value: blood_oxygen.value },
+      { name: 'temperature', value: temperature.value },
+    ]
 
-  for (let metric of metrics) {
+    for (let metric of metrics) {
 
-    const { data, queryError } = await supabase
-    .from('metric_names')
-    .select('id')
-    .eq('name', metric.name)
-    .single()
+      const { data, queryError } = await supabase
+      .from('metric_names')
+      .select('id')
+      .eq('name', metric.name)
+      .single()
 
-    if (queryError) throw queryError
+      if (queryError) throw queryError
 
-    const updates = {
-      id: uuidv4(),
-      user_id: user.value.id,
-      metric_id: data.id,
-      metric_value: metric.value,
-      date: new Date(),
+      const updates = {
+        id: uuidv4(),
+        user_id: user.value.id,
+        metric_id: data.id,
+        metric_value: metric.value,
+        date: new Date(),
+      }
+
+      const { error: insertError } = await supabase
+        .from('health_metrics')
+        .insert(updates, {
+          returning: 'minimal', // Don't return the value after inserting
+        })
+
+      if (insertError) console.log(insertError);
     }
 
-    const { error: insertError } = await supabase
-      .from('health_metrics')
-      .insert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
-      })
-
-    if (insertError) console.log(insertError);
+    statusMessage.value = 'Data successfully registered.';
+  } catch (e) {
+    statusMessage.value = 'An error occurred: ' + e.message;
   }
 }
 
@@ -78,7 +86,7 @@ async function pushHealthData() {
           class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
           value="Register health data"
         />
-
+        <div>{{ statusMessage }}</div>
       </div>
     </form>
   </div>
