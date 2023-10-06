@@ -48,7 +48,7 @@ async function signOut() {
     </div>
 
     <div class="flex flex-col mt-2 float-right">
-      <div class="flex mt-2 float-right">
+      <div class="flex mt-2 float-right justify-end">
         <input
           type="submit"
           class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
