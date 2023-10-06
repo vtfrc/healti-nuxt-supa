@@ -6,17 +6,19 @@ const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { error } = auth.signInWithPassword({
+  const { error } = await auth.signInWithPassword({
     email: email.value,
     password: password.value
   })
 
-  console.log(error)
+  if (error) {
+    console.log(error);
+  }
 }
 
 watchEffect(() => {
   if (user.value) {
-    navigateTo('/dashboard')
+    await navigateTo('/dashboard')
   }
 })
 
