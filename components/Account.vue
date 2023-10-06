@@ -5,20 +5,26 @@ const user = useSupabaseUser()
 const email = ref('')
 const password = ref('')
 
+const statusMessage = ref('')
+
 async function updateUserData() {
-  const updates = {
-    email: email.value,
-    password: password.value,
+  try {
+    const updates = {
+      email: email.value,
+      password: password.value,
+    }
+
+    const { user, error } = await supabase.auth.updateUser(updates, {
+      returning: 'minimal', // Don't return the value after inserting
+    })
+
+    console.log(user)
+    console.log(error)
+
+    statusMessage.value = 'User data updated successfully';
+  } catch (e) {
+    statusMessage.value = 'An error occurred: ' + e.message;
   }
-
-  const { user, error } = await supabase.auth.updateUser(updates, {
-    returning: 'minimal', // Don't return the value after inserting
-  })
-
-  console.log(user)
-  console.log(error)
-
-  alert('User data updated successfully.')
 }
 
 async function signOut() {
@@ -41,14 +47,17 @@ async function signOut() {
       <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="password" type="password" v-model="password" />
     </div>
 
-    <div class="flex mt-2 float-right">
-      <input
-        type="submit"
-        class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
-        value="Update"
-      />
+    <div class="flex flex-col mt-2 float-right">
+      <div class="flex mt-2 float-right">
+        <input
+          type="submit"
+          class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
+          value="Update"
+        />
 
-      <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut" type="button">Log out</button>
+        <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut" type="button">Log out</button>
+      </div>
+      <div class="dark:text-white mt-2">{{ statusMessage }}</div>
     </div>
   </form>
 </template>
