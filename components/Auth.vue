@@ -18,7 +18,7 @@ const handleLogin = async () => {
 
 watchEffect(() => {
   if (user.value) {
-    await navigateTo('/dashboard')
+    navigateTo('/dashboard')
   }
 })
 
