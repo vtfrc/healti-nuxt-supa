@@ -5,14 +5,23 @@ const { auth } = useSupabaseAuthClient()
 const email = ref('')
 const password = ref('')
 
-const handleLogin = async () => {
-  const { error } = await auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
+const isLoading = ref(false)
 
-  if (error) {
+const handleLogin = async () => {
+  isLoading.value = true
+
+  try {
+    const { error } = await auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    })
+    if (error) {
+      console.log(error);
+    }
+  } catch (error) {
     console.log(error);
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -44,8 +53,9 @@ const signup = async () => {
         </button>
         <input
           type="submit"
-          class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right"
-          value="Log in"
+          :class="`button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3 md:float-right`"
+          :value="isLoading ? 'Logging in...' : 'Log in'"
+          :disabled="isLoading"
         />
       </div>
   </form>

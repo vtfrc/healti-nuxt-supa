@@ -6,8 +6,11 @@ const email = ref('')
 const password = ref('')
 
 const statusMessage = ref('')
+const isLoading = ref(false)
 
 async function updateUserData() {
+  isLoading.value = true
+
   try {
     const updates = {
       email: email.value,
@@ -24,6 +27,8 @@ async function updateUserData() {
     statusMessage.value = 'User data updated successfully';
   } catch (e) {
     statusMessage.value = 'An error occurred: ' + e.message;
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -51,8 +56,9 @@ async function signOut() {
       <div class="flex mt-2 float-right justify-end">
         <input
           type="submit"
-          class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
-          value="Update"
+          :class="`button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3`"
+          :value="isLoading ? 'Updating...' : 'Update'"
+          :disabled="isLoading"
         />
 
         <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#202020] dark:border-[#282828]" @click="signOut" type="button">Log out</button>
