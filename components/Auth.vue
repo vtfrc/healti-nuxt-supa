@@ -20,13 +20,12 @@ const handleLogin = async () => {
     }
   } catch (error) {
     console.log(error);
-  } finally {
-    isLoading.value = false
   }
 }
 
 watchEffect(async () => {
   if (user.value) {
+    isLoading.value = false
     await navigateTo('/dashboard')
   }
 })
