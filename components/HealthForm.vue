@@ -10,8 +10,10 @@ const blood_oxygen = ref('')
 const temperature = ref('')
 
 const statusMessage = ref('')
+const isLoading = ref(false)
 
 async function pushHealthData() {
+  isLoading.value = true
 
   try {
     const metrics = [
@@ -51,6 +53,8 @@ async function pushHealthData() {
     statusMessage.value = 'Data successfully registered.';
   } catch (e) {
     statusMessage.value = 'An error occurred: ' + e.message;
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -83,8 +87,9 @@ async function pushHealthData() {
       <div class="flex flex-col mt-2 float-right">
         <input
           type="submit"
-          class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
-          value="Register health data"
+          :class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3"
+          :value="isLoading ? 'Saving data...' : 'Register health data'"
+          :disabled="isLoading"
         />
         <div class="dark:text-white mt-2">{{ statusMessage }}</div>
       </div>
