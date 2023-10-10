@@ -6,6 +6,7 @@ const email = ref('')
 const password = ref('')
 
 const isLoading = ref(false)
+const errorMsg = ref('')
 
 const handleLogin = async () => {
   isLoading.value = true
@@ -16,22 +17,17 @@ const handleLogin = async () => {
       password: password.value
     })
     if (error) {
+      errorMsg.value = 'Invalid email or password.'
       console.log(error);
     }
   } catch (error) {
+    errorMsg.value = 'An unexpected error occurred.'
     console.log(error);
   }
 
   isLoading.value = false
   await navigateTo('/dashboard')
 }
-
-//watchEffect(async () => {
-// if (user.value) {
-//    isLoading.value = false
-//    await navigateTo('/dashboard')
-//  }
-//})
 
 const signup = async () => {
   navigateTo('/signup')
@@ -41,6 +37,9 @@ const signup = async () => {
 <template>
   <form class="form-widget flex flex-col max-w-[500px] w-full" @submit.prevent="handleLogin">
       <h1 class="description font-semibold text-3xl text-center mb-4 dark:text-white">A new way of being Healti.</h1>
+      <div v-if="errorMessage">
+        <p class="dark:text-white">{{ errorMessage }}</p>
+      </div>
       <div class="flex flex-col w-full">
         <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="email" placeholder="Your email" v-model="email" />
         <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="password" placeholder="Your password" v-model="password" />
