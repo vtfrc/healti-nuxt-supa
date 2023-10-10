@@ -37,8 +37,8 @@ const signup = async () => {
 <template>
   <form class="form-widget flex flex-col max-w-[500px] w-full" @submit.prevent="handleLogin">
       <h1 class="description font-semibold text-3xl text-center mb-4 dark:text-white">A new way of being Healti.</h1>
-      <div class="rounded-md mt-2 bg-[#f5b8b8] border-[#b56262] dark:bg-[#692b2b] dark:border-[#a84545]" v-if="errorMsg">
-        <p class="dark:text-white">{{ errorMsg }}</p>
+      <div class="rounded-md mb-2 border bg-[#f5b8b8] border-[#b56262] dark:bg-[#692b2b] dark:border-[#a84545]" v-if="errorMsg">
+        <p class="align-center dark:text-white">{{ errorMsg }}</p>
       </div>
       <div class="flex flex-col w-full">
         <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="email" placeholder="Your email" v-model="email" />
