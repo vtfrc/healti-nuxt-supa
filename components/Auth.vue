@@ -37,7 +37,7 @@ const signup = async () => {
 <template>
   <form class="form-widget flex flex-col max-w-[500px] w-full" @submit.prevent="handleLogin">
       <h1 class="description font-semibold text-3xl text-center mb-4 dark:text-white">A new way of being Healti.</h1>
-      <div v-if="errorMessage">
+      <div v-if="errorMsg">
         <p class="dark:text-white">{{ errorMsg }}</p>
       </div>
       <div class="flex flex-col w-full">
