@@ -21,14 +21,17 @@ const handleLogin = async () => {
   } catch (error) {
     console.log(error);
   }
+
+  isLoading.value = false
+  await navigateTo('/dashboard')
 }
 
-watchEffect(async () => {
-  if (user.value) {
-    isLoading.value = false
-    await navigateTo('/dashboard')
-  }
-})
+//watchEffect(async () => {
+// if (user.value) {
+//    isLoading.value = false
+//    await navigateTo('/dashboard')
+//  }
+//})
 
 const signup = async () => {
   navigateTo('/signup')
