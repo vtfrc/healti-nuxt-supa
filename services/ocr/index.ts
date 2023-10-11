@@ -4,7 +4,7 @@ import pkg from 'pdfjs-dist';
 import { TypedArray } from 'pdfjs-dist/types/src/display/api';
 const { GlobalWorkerOptions } = pkg;
 
-GlobalWorkerOptions.workerSrc = 'node_modules/pdfjs-dist/build/pdf.worker.min.js';
+GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
 
 const ocrService = async (pdfFile: File | Blob) => {
     try {
