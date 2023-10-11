@@ -1,43 +1,97 @@
 <script setup>
 import { v4 as uuidv4 } from "uuid";
 
+import ocrService from '~/services/ocr';
+import nlpService from '~/services/nlp';
+
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
-const blood_pressure = ref('')
-const heart_rate = ref('')
-const blood_oxygen = ref('')
-const temperature = ref('')
+const pdfUploadRef = ref(null);
+const metrics = ref([])
 
+const pdfStatusMessage = ref('')
 const statusMessage = ref('')
+const pdfIsLoading = ref(false)
 const isLoading = ref(false)
+
+async function handlePDFUpload() {
+  pdfIsLoading.value = true
+
+  const pdfFile = pdfUploadRef.value.files[0];
+  if (!pdfFile) return;
+
+  try {
+    // OCR the PDF
+    const ocrText = await ocrService(pdfFile);
+
+    // NLP to extract medical metrics
+    const parsedMetrics = await nlpService(ocrText);
+    console.log(parsedMetrics);
+
+    // Writing each metric and its value (if not null) to the database
+    for (const metric of parsedMetrics) {
+      if (metric.valorization !== null) {
+        const { data, error: queryError } = await supabase
+        .from('metric_names')
+        .select('id')
+        .eq('name', metric.name)
+        .single();
+
+        if (queryError) throw queryError;
+
+        const updates = {
+          id: uuidv4(),
+          user_id: user.value.id,
+          metric_id: data.id,
+          metric_value: metric.valorization,
+          date: new Date(),
+        };
+
+        const { error: insertError } = await supabase
+          .from('health_metrics')
+          .insert(updates, {
+            returning: 'minimal',
+          });
+
+        if (insertError) throw insertError;
+      }
+    }
+
+    pdfStatusMessage.value = 'PDF data successfully registered.';
+  } catch (e) {
+    pdfStatusMessage.value = 'An error occurred: ' + e.message;
+  } finally {
+    pdfIsLoading.value = false;
+  }
+}
+
+async function fetchMetrics() {
+  const { data, error: metricQueryError } = await supabase
+      .from('metric_names')
+      .select('id, name')
+
+  if (metricQueryError) throw metricQueryError
+
+  metrics.value = data.map(metric => ({
+    id: metric.id,
+    name: metric.name,
+    valorization: null,
+  }));
+}
+
+fetchMetrics()
 
 async function pushHealthData() {
   isLoading.value = true
 
   try {
-    const metrics = [
-      { name: 'blood_pressure', value: blood_pressure.value },
-      { name: 'heart_rate', value: heart_rate.value },
-      { name: 'blood_oxygen', value: blood_oxygen.value },
-      { name: 'temperature', value: temperature.value },
-    ]
-
-    for (let metric of metrics) {
-
-      const { data, queryError } = await supabase
-      .from('metric_names')
-      .select('id')
-      .eq('name', metric.name)
-      .single()
-
-      if (queryError) throw queryError
-
+    for (let metric of metrics.value) {
       const updates = {
         id: uuidv4(),
         user_id: user.value.id,
-        metric_id: data.id,
-        metric_value: metric.value,
+        metric_id: metric.id,
+        metric_value: metric.valorization,
         date: new Date(),
       }
 
@@ -62,29 +116,31 @@ async function pushHealthData() {
 
 <template>
   <div class="w-full">
-    <h1 class="description max-w-7xl mx-auto font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
+    <div class="max-w-7xl mx-auto flex flex-col justify-between">
+      <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
+      <div class="flex flex-col">
+        <label for="pdfUpload" class="dark:text-white">Upload your lab results file</label>
+        <input type="file" id="pdfUpload" ref="pdfUploadRef" class="rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white file:bg-white file:border-solid file:border-[#e5e7eb] dark:file:bg-[#202020] dark:file:border-solid dark:file:border-[#383838] dark:file:text-white file:rounded-md file:border file:shadow-none" />
+      </div>
+      <div class="flex flex-col justify-end items-end">
+        <button type="button" @click="handlePDFUpload" class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3">{{ pdfIsLoading ? 'Uploading PDF...' : 'Upload PDF' }}</button>
+        <div class="dark:text-white mt-2">{{ pdfStatusMessage }}</div>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto text-center mt-4 mb-8">
+      <p class="text-[#999]">...or enter your health data manually</p>
+    </div>
+
     <form class="form-widget max-w-7xl mx-auto" @submit.prevent="pushHealthData">
-      
-      <div class="xl:columns-4">
-        <div class="flex flex-col">
-          <label for="blood_pressure" class="dark:text-white">Blood Pressure</label>
-          <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="blood_pressure" type="text" v-model="blood_pressure" />
-        </div>
-        <div class="flex flex-col">
-          <label for="heart_rate" class="dark:text-white">Heart Rate</label>
-          <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="heart_rate" type="text" v-model="heart_rate" />
-        </div>
-        <div class="flex flex-col">
-          <label for="blood_oxygen" class="dark:text-white">Blood Oxygen</label>
-          <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="blood_oxygen" type="text" v-model="blood_oxygen" />
-        </div>
-        <div class="flex flex-col">
-          <label for="temperature" class="dark:text-white">Temperature</label>
-          <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" id="temperature" type="text" v-model="temperature" />
+      <div class="grid xl:grid-cols-4 lg:grid-cols-2 lg:gap-4 lg:gap-y-0">
+        <div v-for="metric in metrics" :key="metric.id" class="flex flex-col">
+          <label :for="metric" class="dark:text-white">{{ metric.name.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) }}</label>
+          <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" :id="metric" type="text" v-model="metric.valorization" />
         </div>
       </div>
 
-      <div class="flex flex-col mt-2 float-right">
+      <div class="flex flex-col justify-end items-end">
         <input
           type="submit"
           :class="`button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3`"
