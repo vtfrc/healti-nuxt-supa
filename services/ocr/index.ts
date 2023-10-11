@@ -1,22 +1,29 @@
 import Tesseract from 'tesseract.js';
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
+import { getDocument } from 'pdfjs-dist';
+import pkg from 'pdfjs-dist';
+import { TypedArray } from 'pdfjs-dist/types/src/display/api';
+const { GlobalWorkerOptions } = pkg;
 
 GlobalWorkerOptions.workerSrc = 'node_modules/pdfjs-dist/build/pdf.worker.min.js';
 
 const ocrService = async (pdfFile: File | Blob) => {
     try {
-        async function pdfToCanvas(pdfFile) {
+        async function pdfToCanvas(pdfFile: Blob) {
             const reader = new FileReader();
             const promise = new Promise<TypedArray>((resolve, reject) => {
               reader.onload = function(event) {
-                resolve(new Uint8Array(event.target.result as ArrayBuffer));
+                if (event.target) {
+                  resolve(new Uint8Array(event.target.result as ArrayBuffer));
+                } else {
+                  reject(new Error("Could not read file: event.target is null"));
+                }
               };
               reader.onerror = function(event) {
                 reject(new Error("Could not read file: " + event));
               };
             });
             reader.readAsArrayBuffer(pdfFile);
-      
+
             const typedArray = await promise;
             const loadingTask = getDocument({ data: typedArray });
             const pdf = await loadingTask.promise;
@@ -26,11 +33,15 @@ const ocrService = async (pdfFile: File | Blob) => {
             canvas.width = viewport.width;
             canvas.height = viewport.height;
             const ctx = canvas.getContext('2d');
-            await page.render({ canvasContext: ctx, viewport }).promise;
+
+            if (ctx) {
+              await page.render({ canvasContext: ctx, viewport }).promise;
+            }
+
             return canvas;
         }
 
-        async function runOCR(canvas) {
+        async function runOCR(canvas: Tesseract.ImageLike) {
             const result = await Tesseract.recognize(
               canvas,
               'eng',
