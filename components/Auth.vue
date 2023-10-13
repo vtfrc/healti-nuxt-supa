@@ -16,17 +16,20 @@ const handleLogin = async () => {
       email: email.value,
       password: password.value
     })
+
     if (error) {
       errorMsg.value = 'Invalid email or password.'
       console.log(error);
+      return;
     }
+
+    await navigateTo('/dashboard');
   } catch (error) {
     errorMsg.value = 'An unexpected error occurred.'
     console.log(error);
+  } finally {
+    isLoading.value = false
   }
-
-  isLoading.value = false
-  await navigateTo('/dashboard')
 }
 
 const signup = async () => {
