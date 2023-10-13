@@ -33,7 +33,7 @@ const handleLogin = async () => {
 }
 
 const signup = async () => {
-  navigateTo('/signup')
+  await navigateTo('/signup')
 }
 </script>
 

@@ -29,7 +29,7 @@ const handleSignUp = async () => {
 }
 
 const login = async () => {
-    navigateTo('/')
+    await navigateTo('/')
 }
 </script>
 
