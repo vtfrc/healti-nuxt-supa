@@ -12,21 +12,6 @@ const handleSignUp = async () => {
   successMsg.value = ''
   errorMsg.value = ''
 
-  const { data: users, error: fetchError } = await supabase
-    .from('users')
-    .select('*')
-    .eq('email', email.value)
-
-  if (fetchError) {
-    errorMsg.value = fetchError.message
-    return
-  }
-
-  if (users.length > 0) {
-    errorMsg.value = 'An account with this email already exists.'
-    return
-  }
-
   try {
     isLoading.value = true
     const { user, error } = await supabase.auth.signUp({
