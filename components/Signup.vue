@@ -14,11 +14,11 @@ const handleSignUp = async () => {
 
   try {
     isLoading.value = true
-    const { user, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value
     })
-    if (user && user.identities && user.identities.length === 0) throw new Error('This email is already taken.')
+    if (data.user && data.user.identities && data.user.identities.length === 0) throw new Error('This email is already taken.')
     if (error) throw error
     successMsg.value = 'Check your email to confirm your account.'
     isLoading.value = false
