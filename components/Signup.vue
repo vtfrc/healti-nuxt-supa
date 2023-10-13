@@ -18,6 +18,7 @@ const handleSignUp = async () => {
       email: email.value,
       password: password.value
     })
+    if (user && user.identities && user.identities.length === 0) throw new Error('This email is already taken.')
     if (error) throw error
     successMsg.value = 'Check your email to confirm your account.'
     isLoading.value = false
