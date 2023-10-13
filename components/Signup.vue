@@ -9,13 +9,23 @@ const successMsg = ref('')
 const errorMsg = ref('')
 
 const handleSignUp = async () => {
+  successMsg.value = ''
+  errorMsg.value = ''
+
   try {
     isLoading.value = true
     const { user, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value
     })
-    if (error) throw error
+    
+    if (error) {
+      if (error.message.includes('unique constraint')) {
+        throw new Error('An account with this email already exists.')
+      } else {
+        throw error
+      }
+    }
     successMsg.value = 'Check your email to confirm your account.'
     isLoading.value = false
   } catch (error) {
