@@ -1,4 +1,6 @@
 const nlpService = async (text : string) => {
+    const supabase = useSupabaseClient()
+
     const { data, error: metricQueryError } = await supabase
         .from('metric_names')
         .select('id, name')
