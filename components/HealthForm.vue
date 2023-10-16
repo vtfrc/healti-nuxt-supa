@@ -115,7 +115,7 @@ async function pushHealthData() {
 </script>
 
 <template>
-  <div class="w-full mt-[50px] pb-[50px] xl:mt-0 xl:pb-0">
+  <div class="w-full mt-[50px] pb-[50px] 2xl:mt-0 2xl:pb-0">
     <div class="max-w-7xl mx-auto flex flex-col justify-between">
       <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
       <div class="flex flex-col">
