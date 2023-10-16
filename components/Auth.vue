@@ -22,7 +22,7 @@ const handleLogin = async () => {
       return;
     }
 
-    //await navigateTo('/account');
+    await navigateTo('/dashboard');
   } catch (error) {
     errorMsg.value = 'An unexpected error occurred.'
     console.log(error);
