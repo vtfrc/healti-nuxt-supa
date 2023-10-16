@@ -1,5 +1,5 @@
 <script setup>
-const supabase = useSupabaseClient()
+const { auth } = useSupabaseAuthClient()
 
 const email = ref('')
 const password = ref('')
@@ -14,7 +14,7 @@ const handleSignUp = async () => {
 
   try {
     isLoading.value = true
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await auth.signUp({
       email: email.value,
       password: password.value
     })
