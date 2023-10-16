@@ -1,5 +1,4 @@
 <script setup>
-const user = useSupabaseUser()
 const { auth } = useSupabaseAuthClient()
 
 const email = ref('')
@@ -23,7 +22,7 @@ const handleLogin = async () => {
       return;
     }
 
-    await navigateTo('/dashboard');
+    //await navigateTo('/account');
   } catch (error) {
     errorMsg.value = 'An unexpected error occurred.'
     console.log(error);

@@ -1,6 +1,6 @@
 <script setup>
-const supabase = useSupabaseClient()
 const user = useSupabaseUser()
+const { auth } = useSupabaseAuthClient()
 
 const email = ref('')
 const password = ref('')
@@ -17,7 +17,7 @@ async function updateUserData() {
       password: password.value,
     }
 
-    const { user, error } = await supabase.auth.updateUser(updates, {
+    const { user, error } = await auth.updateUser(updates, {
       returning: 'minimal', // Don't return the value after inserting
     })
 
@@ -33,7 +33,7 @@ async function updateUserData() {
 }
 
 async function signOut() {
-  let { user, error } = await supabase.auth.signOut()
+  let { user, error } = await auth.signOut()
   console.log(user)
   console.log(error)
   navigateTo('/')
