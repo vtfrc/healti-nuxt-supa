@@ -120,7 +120,7 @@ async function pushHealthData() {
       <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
       <div class="flex flex-col">
         <label for="pdfUpload" class="dark:text-white">Upload your lab results file</label>
-        <input type="file" id="pdfUpload" ref="pdfUploadRef" class="rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white file:bg-white file:border-solid file:border-[#e5e7eb] dark:file:bg-[#202020] dark:file:border-solid dark:file:border-[#383838] dark:file:text-white file:rounded-md file:border file:shadow-none" />
+        <input type="file" id="pdfUpload" ref="pdfUploadRef" class="rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white file:bg-white file:border-solid file:border-[#e5e7eb] dark:file:bg-[#282828] dark:file:border-solid dark:file:border-[#383838] dark:file:text-white p-0 file:px-4 file:py-2 file:mr-4 file:border-r file:shadow-none" />
       </div>
       <div class="flex flex-col justify-end items-end">
         <button type="button" @click="handlePDFUpload" class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3">{{ pdfIsLoading ? 'Uploading PDF...' : 'Upload PDF' }}</button>
