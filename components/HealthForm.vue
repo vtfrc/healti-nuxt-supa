@@ -155,14 +155,12 @@ async function pushHealthData() {
     </div>
 
     <form class="form-widget max-w-7xl mx-auto" @submit.prevent="pushHealthData">
-      <div class="flex flex-col grid lg:grid-cols-2 lg:flex-row lg:gap-4">
+      <div class="grid lg:grid-cols-2 lg:flex-row lg:gap-4">
         <div class="flex flex-col mb-3 lg:mb-0">
-          <label for="metricName" class="dark:text-white">Metric Name</label>
-          <input id="metricName" type="text" v-model="metricName" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#101010] dark:border-[#181818] dark:text-white" />
+          <input id="metricName" type="text" v-model="metricName" class="inputField rounded-md px-4 py-2 mt-2 bg-[#eee] dark:bg-[#222] dark:text-white" placeholder="Health metric name" />
         </div>
         <div class="flex flex-col">
-          <label for="metricValue" class="dark:text-white">Metric Value</label>
-          <input id="metricValue" type="text" v-model="metricValue" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#101010] dark:border-[#181818] dark:text-white" />
+          <input id="metricValue" type="text" v-model="metricValue" class="inputField rounded-md px-4 py-2 mt-2 bg-[#eee] dark:bg-[#222] dark:text-white" placeholder="Measured value" />
         </div>
       </div>
 
