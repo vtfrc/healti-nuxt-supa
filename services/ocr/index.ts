@@ -1,8 +1,6 @@
 import Tesseract from 'tesseract.js';
-import { getDocument } from 'pdfjs-dist';
-import pkg from 'pdfjs-dist';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
 import { TypedArray } from 'pdfjs-dist/types/src/display/api';
-const { GlobalWorkerOptions } = pkg;
 
 GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
 

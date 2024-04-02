@@ -8,12 +8,16 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const pdfUploadRef = ref(null);
-const metrics = ref([])
 
-const pdfStatusMessage = ref('')
-const statusMessage = ref('')
-const pdfIsLoading = ref(false)
-const isLoading = ref(false)
+const metrics = ref([]);
+
+const metricName = ref([]);
+const metricValue = ref([]);
+
+const pdfStatusMessage = ref('');
+const statusMessage = ref('');
+const pdfIsLoading = ref(false);
+const isLoading = ref(false);
 
 async function handlePDFUpload() {
   pdfIsLoading.value = true
@@ -68,47 +72,65 @@ async function handlePDFUpload() {
 
 async function fetchMetrics() {
   const { data, error: metricQueryError } = await supabase
-      .from('metric_names')
-      .select('id, name')
+  .from('health_metrics')
+  .select(`
+    id,
+    date,
+    metric_id,
+    metric_value,
+    metric_names (
+      name
+    )
+  `);
 
   if (metricQueryError) throw metricQueryError
 
   metrics.value = data.map(metric => ({
     id: metric.id,
-    name: metric.name,
-    valorization: null,
+    name: metric.metric_names.name,
+    value: metric.metric_value,
+    date: metric.date,
   }));
 }
 
 fetchMetrics()
 
 async function pushHealthData() {
-  isLoading.value = true
+  isLoading.value = true;
 
   try {
-    for (let metric of metrics.value) {
-      const updates = {
-        id: uuidv4(),
-        user_id: user.value.id,
-        metric_id: metric.id,
-        metric_value: metric.valorization,
-        date: new Date(),
-      }
+    const { data, error: queryError } = await supabase
+      .from('metric_names')
+      .select('id')
+      .eq('name', metricName.value)
+      .single();
 
-      const { error: insertError } = await supabase
-        .from('health_metrics')
-        .insert(updates, {
-          returning: 'minimal', // Don't return the value after inserting
-        })
+    if (queryError) throw queryError;
 
-      if (insertError) console.log(insertError);
-    }
+    const updates = {
+      id: uuidv4(),
+      user_id: user.value.id,
+      metric_id: data.id,
+      metric_value: metricValue.value,
+      date: new Date(),
+    };
+
+    const { error: insertError } = await supabase
+      .from('health_metrics')
+      .insert(updates, {
+        returning: 'minimal', // Don't return the value after inserting
+      });
+
+    if (insertError) throw insertError;
 
     statusMessage.value = 'Data successfully registered.';
+    metricName.value = ''; // Reset the metric name input field
+    metricValue.value = ''; // Reset the metric value input field
+
   } catch (e) {
     statusMessage.value = 'An error occurred: ' + e.message;
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
 }
 
@@ -133,20 +155,19 @@ async function pushHealthData() {
     </div>
 
     <form class="form-widget max-w-7xl mx-auto" @submit.prevent="pushHealthData">
-      <div class="grid xl:grid-cols-4 lg:grid-cols-2 lg:gap-4 lg:gap-y-0">
-        <div v-for="metric in metrics" :key="metric.id" class="flex flex-col">
-          <label :for="metric" class="dark:text-white">{{ metric.name.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) }}</label>
-          <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white" :id="metric" type="text" v-model="metric.valorization" />
+      <div class="flex flex-col grid lg:grid-cols-2 lg:flex-row lg:gap-4">
+        <div class="flex flex-col mb-3 lg:mb-0">
+          <label for="metricName" class="dark:text-white">Metric Name</label>
+          <input id="metricName" type="text" v-model="metricName" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" />
+        </div>
+        <div class="flex flex-col">
+          <label for="metricValue" class="dark:text-white">Metric Value</label>
+          <input id="metricValue" type="text" v-model="metricValue" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" />
         </div>
       </div>
 
-      <div class="flex flex-col justify-end items-end">
-        <input
-          type="submit"
-          :class="`button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3`"
-          :value="isLoading ? 'Saving data...' : 'Register health data'"
-          :disabled="isLoading"
-        />
+      <div class="flex flex-col justify-end items-end mt-3">
+        <input type="submit" class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md" :value="isLoading ? 'Saving data...' : 'Register health data'" :disabled="isLoading" />
         <div class="dark:text-white mt-2">{{ statusMessage }}</div>
       </div>
     </form>
