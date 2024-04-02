@@ -5,5 +5,5 @@
 </script>
 
 <template>
-    <Auth />
+    <Signup />
 </template>

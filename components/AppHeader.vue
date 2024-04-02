@@ -10,9 +10,17 @@ const toggleDark = () => {
 
 //const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'ph:sun-fill' : 'ph:moon-fill')
 
+const signup = async () => {
+  navigateTo('/')
+}
+
+const login = async () => {
+  navigateTo('/login')
+}
+
 const logout = async () => {
   await client.auth.signOut()
-  navigateTo('/')
+  navigateTo('/login')
 }
 
 const dashboard = async () => {
@@ -44,6 +52,22 @@ const account = async () => {
         > 
           <Icon v-if="$colorMode.preference === 'dark'" name="ph:sun-fill" />
           <Icon v-if="$colorMode.preference === 'light' || $colorMode.preference === 'system'" name="ph:moon-fill" />
+        </button>
+        <button
+          v-if="!user"
+          class="button ml-4"
+          variant="transparent"
+          @click="login"
+        >
+          Log in
+        </button>
+        <button
+          v-if="!user"
+          class="button ml-4 text-[#64dfac] font-bold"
+          variant="transparent"
+          @click="signup"
+        >
+          Sign up
         </button>
         <button
             v-if="user"
