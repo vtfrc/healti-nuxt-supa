@@ -71,16 +71,16 @@ const account = async () => {
   </div>
   <div class="flex-col items-center border-b dark:border-[#222] flex md:hidden dark:text-white" :class="{'flex': isMenuOpen, 'hidden': !isMenuOpen}">
     <!-- Menu Items -->
-    <button v-if="!user" @click="login" class="button mb-2">
+    <button v-if="!user" @click="login" class="button mt-4 mb-4">
       Log in
     </button>
-    <button v-if="!user" @click="signup" class="button text-[#64dfac] font-bold mb-2">
+    <button v-if="!user" @click="signup" class="button text-[#64dfac] font-bold mb-4">
       Sign up
     </button>
-    <button v-if="user" @click="account" class="button mb-2">
+    <button v-if="user" @click="account" class="button mt-4 mb-4">
       Account
     </button>
-    <button v-if="user" @click="logout" class="u-text-white mb-2">
+    <button v-if="user" @click="logout" class="u-text-white mb-4">
       Log out
     </button>
   </div>
