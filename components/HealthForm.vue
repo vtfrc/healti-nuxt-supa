@@ -142,7 +142,7 @@ async function pushHealthData() {
       <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">How do you feel today?</h1>
       <div class="flex flex-col">
         <label for="pdfUpload" class="dark:text-white">Upload your lab results file</label>
-        <input type="file" id="pdfUpload" ref="pdfUploadRef" class="cursor-pointer rounded-md border mt-2 mb-3 dark:bg-[#202020] dark:border-[#282828] dark:text-white file:cursor-pointer file:bg-white file:border-solid file:border-[#e5e7eb] dark:file:bg-[#282828] dark:file:border-solid dark:file:border-[#383838] dark:file:text-white p-0 file:px-4 file:py-2 file:mr-4 file:border-r file:border-y-0 file:border-l-0 file:shadow-none" />
+        <input type="file" id="pdfUpload" ref="pdfUploadRef" class="cursor-pointer rounded-md border mt-2 mb-3 dark:bg-[#101010] dark:border-[#181818] dark:text-white file:cursor-pointer file:bg-white file:border-solid file:border-[#e5e7eb] dark:file:bg-[#181818] dark:file:border-solid dark:file:border-[#383838] dark:file:text-white p-0 file:px-4 file:py-2 file:mr-4 file:border-r file:border-y-0 file:border-l-0 file:shadow-none" />
       </div>
       <div class="flex flex-col justify-end items-end">
         <button type="button" @click="handlePDFUpload" class="button cursor-pointer bg-[#64CFAC] text-white px-4 py-2 rounded-md mt-3">{{ pdfIsLoading ? 'Uploading PDF...' : 'Upload PDF' }}</button>
@@ -151,18 +151,18 @@ async function pushHealthData() {
     </div>
     
     <div class="max-w-7xl mx-auto text-center mt-4 mb-8">
-      <p class="text-[#999]">...or enter your health data manually</p>
+      <p class="text-[#888]">...or enter your health data manually</p>
     </div>
 
     <form class="form-widget max-w-7xl mx-auto" @submit.prevent="pushHealthData">
       <div class="flex flex-col grid lg:grid-cols-2 lg:flex-row lg:gap-4">
         <div class="flex flex-col mb-3 lg:mb-0">
           <label for="metricName" class="dark:text-white">Metric Name</label>
-          <input id="metricName" type="text" v-model="metricName" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" />
+          <input id="metricName" type="text" v-model="metricName" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#101010] dark:border-[#181818] dark:text-white" />
         </div>
         <div class="flex flex-col">
           <label for="metricValue" class="dark:text-white">Metric Value</label>
-          <input id="metricValue" type="text" v-model="metricValue" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#202020] dark:border-[#282828] dark:text-white" />
+          <input id="metricValue" type="text" v-model="metricValue" class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#101010] dark:border-[#181818] dark:text-white" />
         </div>
       </div>
 

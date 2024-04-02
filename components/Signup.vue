@@ -43,8 +43,8 @@ const login = async () => {
         <p class="text-center dark:text-white">{{ successMsg }}</p>
       </div>
       <div class="flex flex-col w-full">
-        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="email" placeholder="Your email" v-model="email" />
-        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#202020] dark:border-[#282828] dark:text-white" type="password" placeholder="Your password" v-model="password" />
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#101010] dark:border-[#181818] dark:text-white" type="email" placeholder="Your email" v-model="email" />
+        <input class="inputField rounded-md border px-4 py-2 mt-2 w-full dark:bg-[#101010] dark:border-[#181818] dark:text-white" type="password" placeholder="Your password" v-model="password" />
       </div>
       <div class="text-center md:text-left flex flex-col-reverse md:flex-row md:justify-between">
         <button
