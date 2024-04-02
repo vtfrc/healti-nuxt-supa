@@ -44,12 +44,10 @@ async function signOut() {
   <form class="form-widget max-w-[500px] w-full" @submit.prevent="updateUserData">
     <h1 class="description font-semibold text-3xl text-left mb-4 dark:text-white">Edit your profile credentials</h1>
     <div class="flex flex-col">
-      <label for="email" class="dark:text-white">Email</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 mb-3 dark:bg-[#101010] dark:border-[#181818] dark:text-white" id="email" type="email" :value="user?.email" />
+      <input class="inputField rounded-md px-4 py-2 mt-2 mb-3 bg-[#eee] dark:bg-[#222] dark:text-white" id="email" type="email" placeholder="New email" :value="user?.email" />
     </div>
     <div class="flex flex-col">
-      <label for="password" class="dark:text-white">Password</label>
-      <input class="inputField rounded-md border px-4 py-2 mt-2 dark:bg-[#101010] dark:border-[#181818] dark:text-white" id="password" type="password" v-model="password" />
+      <input class="inputField rounded-md px-4 py-2 mt-2 bg-[#eee] dark:bg-[#222] dark:text-white" id="password" type="password" placeholder="New password" v-model="password" />
     </div>
 
     <div class="flex flex-col mt-2 float-right">
@@ -61,7 +59,7 @@ async function signOut() {
           :disabled="isLoading"
         />
 
-        <button class="button bg-white text-[#64CFAC] border px-4 py-2 rounded-md mt-3 ml-2 dark:bg-[#101010] dark:border-[#181818]" @click="signOut" type="button">Log out</button>
+        <button class="button text-[#64CFAC] px-4 py-2 rounded-md mt-3 ml-2 bg-[#eee] dark:bg-[#222]" @click="signOut" type="button">Log out</button>
       </div>
       <div class="dark:text-white mt-2">{{ statusMessage }}</div>
     </div>
