@@ -11,8 +11,8 @@ const pdfUploadRef = ref(null);
 
 const metrics = ref([]);
 
-const metricName = ref([]);
-const metricValue = ref([]);
+const metricName = ref('');
+const metricValue = ref('');
 
 const pdfStatusMessage = ref('');
 const statusMessage = ref('');
@@ -35,7 +35,7 @@ async function handlePDFUpload() {
 
     // Writing each metric and its value (if not null) to the database
     for (const metric of parsedMetrics) {
-      if (metric.valorization !== null) {
+      if (metric.value !== null) {
         const { data, error: queryError } = await supabase
         .from('metric_names')
         .select('id')
@@ -48,7 +48,7 @@ async function handlePDFUpload() {
           id: uuidv4(),
           user_id: user.value.id,
           metric_id: data.id,
-          metric_value: metric.valorization,
+          metric_value: metric.value,
           date: new Date(),
         };
 
@@ -81,7 +81,8 @@ async function fetchMetrics() {
     metric_names (
       name
     )
-  `);
+  `)
+  .eq('user_id', user.value.id);
 
   if (metricQueryError) throw metricQueryError
 
@@ -90,6 +91,7 @@ async function fetchMetrics() {
     name: metric.metric_names.name,
     value: metric.metric_value,
     date: metric.date,
+    metric_id: metric.metric_id,
   }));
 }
 

@@ -1,5 +1,5 @@
 <template>
-<div class="min-h-screen bg-white dark:bg-black">
+<div class="antialiased min-h-screen bg-white dark:bg-black">
     <slot />
 </div>
 </template>

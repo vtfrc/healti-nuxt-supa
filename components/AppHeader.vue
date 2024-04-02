@@ -53,7 +53,26 @@ const account = async () => {
           <Icon name="ph:list" />
         </button>
       </div>
-      <div class="hidden lg:flex items-center" :class="{'flex': isMenuOpen, 'hidden': !isMenuOpen}">
+      <div class="items-center" :class="{'hidden': isMenuOpen, 'flex': !isMenuOpen}">
+        <!-- Menu Items -->
+        <button @click="toggleDark" class="transition-all duration-500 ease-in-out">
+          <Icon v-if="$colorMode.preference === 'dark'" name="ph:sun-fill" />
+          <Icon v-if="$colorMode.preference === 'light' || $colorMode.preference === 'system'" name="ph:moon-fill" />
+        </button>
+        <button v-if="!user" @click="login" class="button ml-4">
+          Log in
+        </button>
+        <button v-if="!user" @click="signup" class="button ml-4 text-[#64dfac] font-bold">
+          Sign up
+        </button>
+        <button v-if="user" @click="account" class="button ml-4">
+          Account
+        </button>
+        <button v-if="user" @click="logout" class="u-text-white ml-4">
+          Log out
+        </button>
+      </div>
+      <div class="flex-col items-center" :class="{'flex': isMenuOpen, 'hidden': !isMenuOpen}">
         <!-- Menu Items -->
         <button @click="toggleDark" class="transition-all duration-500 ease-in-out">
           <Icon v-if="$colorMode.preference === 'dark'" name="ph:sun-fill" />
