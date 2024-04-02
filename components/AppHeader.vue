@@ -9,13 +9,6 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const toggleDark = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  colorMode.value = colorMode.preference
-}
-
-//const colorModeIcon = computed(() => colorMode.preference === 'dark' ? 'ph:sun-fill' : 'ph:moon-fill')
-
 const signup = async () => {
   if (isMenuOpen.value) isMenuOpen.value = false
   navigateTo('/')
@@ -61,10 +54,6 @@ const account = async () => {
       </div>
       <div class="hidden md:flex items-center" :class="{'hidden': isMenuOpen, 'flex': !isMenuOpen}">
         <!-- Menu Items -->
-        <button @click="toggleDark" class="transition-all duration-500 ease-in-out">
-          <Icon v-if="$colorMode.preference === 'dark'" name="ph:sun-fill" />
-          <Icon v-if="$colorMode.preference === 'light' || $colorMode.preference === 'system'" name="ph:moon-fill" />
-        </button>
         <button v-if="!user" @click="login" class="button ml-4">
           Log in
         </button>
@@ -82,10 +71,6 @@ const account = async () => {
   </div>
   <div class="flex-col items-center border-b dark:border-[#222] flex md:hidden dark:text-white" :class="{'flex': isMenuOpen, 'hidden': !isMenuOpen}">
     <!-- Menu Items -->
-    <button @click="toggleDark" class="transition-all duration-500 ease-in-out mt-2 mb-2">
-      <Icon v-if="$colorMode.preference === 'dark'" name="ph:sun-fill" />
-      <Icon v-if="$colorMode.preference === 'light' || $colorMode.preference === 'system'" name="ph:moon-fill" />
-    </button>
     <button v-if="!user" @click="login" class="button mb-2">
       Log in
     </button>
